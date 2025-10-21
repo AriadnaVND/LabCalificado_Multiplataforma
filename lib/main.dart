@@ -150,11 +150,16 @@ class LandingPage extends StatelessWidget {
 
                         SizedBox(height: 20),
 
-                        // Sección de deportes
-                        _SportsSection(),
 
                         // Enlaces y detalles inferiores
                         _FooterLinks(),
+
+                        
+                        _BrandsRow(),
+                        SizedBox(height: 40),
+
+                        // Sección de deportes
+                        _SportsSection(),
                       ],
                     ),
                   ),
@@ -224,6 +229,66 @@ class _LandingHeader extends StatelessWidget {
     );
   }
 }
+
+// =========================================================================
+// SECCIÓN DE MARCAS (Disney, Pixar, Marvel, Star Wars, etc.)
+// =========================================================================
+
+class _BrandsRow extends StatelessWidget {
+  const _BrandsRow();
+
+  @override
+  Widget build(BuildContext context) {
+    final List<String> logos = [
+      'https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney_wordmark.svg',
+      'https://upload.wikimedia.org/wikipedia/commons/2/2d/Pixar_logo.svg',
+      'https://upload.wikimedia.org/wikipedia/commons/b/b9/Marvel_Logo.svg',
+      'https://upload.wikimedia.org/wikipedia/commons/6/6c/Star_Wars_Logo.svg',
+      'https://upload.wikimedia.org/wikipedia/commons/4/4d/National_Geographic_logo.svg',
+      'https://upload.wikimedia.org/wikipedia/commons/5/58/ESPN_wordmark.svg',
+      'https://upload.wikimedia.org/wikipedia/commons/e/e4/Hulu_Logo.svg',
+    ];
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 20),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(logos.length, (index) {
+            return Row(
+              children: [
+                Image.network(
+                  logos[index],
+                  height: 40,
+                  fit: BoxFit.contain,
+                  color: Colors.white,
+                  colorBlendMode: BlendMode.modulate,
+                  errorBuilder: (context, error, stackTrace) {
+                    return const Icon(Icons.broken_image, color: Colors.white54);
+                  },
+                ),
+                if (index < logos.length - 1)
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Text(
+                      '+',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+              ],
+            );
+          }),
+        ),
+      ),
+    );
+  }
+}
+
 
 /// Widget que contiene el logo y los textos principales del centro
 
